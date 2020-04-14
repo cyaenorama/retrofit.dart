@@ -51,10 +51,10 @@ Map<String, dynamic> _$TaskGroupToJson(TaskGroup instance) => <String, dynamic>{
 // RetrofitGenerator
 // **************************************************************************
 
-class _RestClient implements RestClient {
-  _RestClient(this._dio, {this.baseUrl}) {
+class _$RestClient implements RestClient {
+  _$RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    this.baseUrl ??= 'https://5d42a6e2bc64f90014a56ca0.mockapi.io/api/v1/';
+    baseUrl ??= 'https://5d42a6e2bc64f90014a56ca0.mockapi.io/api/v1/';
   }
 
   final Dio _dio;
@@ -62,12 +62,12 @@ class _RestClient implements RestClient {
   String baseUrl;
 
   @override
-  getTags() async {
+  Future<List<String>> getTags() async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final Response<List<dynamic>> _result = await _dio.request('/tags',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'GET',
             headers: <String, dynamic>{},
@@ -79,33 +79,33 @@ class _RestClient implements RestClient {
   }
 
   @override
-  getTasks() async {
+  Future<List<Task>> getTasks() async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final Response<List<dynamic>> _result = await _dio.request('/tasks',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'GET',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    var value = _result.data
-        .map((dynamic i) => Task.fromJson(i as Map<String, dynamic>))
+    final value = _result.data
+        .map((i) => Task.fromJson(i as Map<String, dynamic>))
         .toList();
     return Future.value(value);
   }
 
   @override
-  getTask(id) async {
+  Future<Task> getTask(String id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final Response<Map<String, dynamic>> _result = await _dio.request(
         '/tasks/$id',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'GET',
             headers: <String, dynamic>{},
@@ -117,16 +117,16 @@ class _RestClient implements RestClient {
   }
 
   @override
-  updateTaskPart(id, map) async {
+  Future<Task> updateTaskPart(String id, Map<String, dynamic> map) async {
     ArgumentError.checkNotNull(id, 'id');
     ArgumentError.checkNotNull(map, 'map');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(map ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(
         '/tasks/$id',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'PATCH',
             headers: <String, dynamic>{},
@@ -138,16 +138,16 @@ class _RestClient implements RestClient {
   }
 
   @override
-  updateTask(id, task) async {
+  Future<Task> updateTask(String id, Task task) async {
     ArgumentError.checkNotNull(id, 'id');
     ArgumentError.checkNotNull(task, 'task');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(task?.toJson() ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(
         '/tasks/$id',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'PUT',
             headers: <String, dynamic>{},
@@ -159,13 +159,13 @@ class _RestClient implements RestClient {
   }
 
   @override
-  deleteTask(id) async {
+  Future<void> deleteTask(String id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     await _dio.request<void>('/tasks/$id',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'DELETE',
             headers: <String, dynamic>{},
@@ -176,14 +176,14 @@ class _RestClient implements RestClient {
   }
 
   @override
-  createTask(task) async {
+  Future<Task> createTask(Task task) async {
     ArgumentError.checkNotNull(task, 'task');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(task?.toJson() ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request('/tasks',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'POST',
             headers: <String, dynamic>{},
@@ -195,17 +195,17 @@ class _RestClient implements RestClient {
   }
 
   @override
-  createNewTaskFromFile(file) async {
+  Future<void> createNewTaskFromFile(File file) async {
     ArgumentError.checkNotNull(file, 'file');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = FormData();
     _data.files.add(MapEntry(
         'file',
         MultipartFile.fromFileSync(file.path,
             filename: file.path.split(Platform.pathSeparator).last)));
     await _dio.request<void>('http://httpbin.org/post',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'POST',
             headers: <String, dynamic>{},
@@ -216,13 +216,13 @@ class _RestClient implements RestClient {
   }
 
   @override
-  getFile() async {
+  Future<List<int>> getFile() async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final Response<List<dynamic>> _result = await _dio.request(
         'http://httpbin.org/image/jpeg',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'GET',
             headers: <String, dynamic>{'accept': 'image/jpeg'},
@@ -235,14 +235,14 @@ class _RestClient implements RestClient {
   }
 
   @override
-  postUrlEncodedFormData(hello) async {
+  Future<String> postUrlEncodedFormData(String hello) async {
     ArgumentError.checkNotNull(hello, 'hello');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = {'hello': hello};
     final Response<String> _result = await _dio.request(
         'http://httpbin.org/post',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'POST',
             headers: <String, dynamic>{},
@@ -255,12 +255,12 @@ class _RestClient implements RestClient {
   }
 
   @override
-  headRequest() async {
+  Future<String> headRequest() async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final Response<String> _result = await _dio.request('/',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'HEAD',
             headers: <String, dynamic>{},
@@ -272,52 +272,52 @@ class _RestClient implements RestClient {
   }
 
   @override
-  grouppedTaskByDate() async {
+  Future<List<TaskGroup>> grouppedTaskByDate() async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final Response<List<dynamic>> _result = await _dio.request('/task/group',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'GET',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    var value = _result.data
-        .map((dynamic i) => TaskGroup.fromJson(i as Map<String, dynamic>))
+    final value = _result.data
+        .map((i) => TaskGroup.fromJson(i as Map<String, dynamic>))
         .toList();
     return Future.value(value);
   }
 
   @override
-  getTasksWithReponse() async {
+  Future<HttpResponse<List<Task>>> getTasksWithReponse() async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final Response<List<dynamic>> _result = await _dio.request('/task',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'GET',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    var value = _result.data
-        .map((dynamic i) => Task.fromJson(i as Map<String, dynamic>))
+    final value = _result.data
+        .map((i) => Task.fromJson(i as Map<String, dynamic>))
         .toList();
     final httpResponse = HttpResponse(value, _result);
     return Future.value(httpResponse);
   }
 
   @override
-  deleteTaskWithResponse(id) async {
+  Future<HttpResponse<void>> deleteTaskWithResponse(String id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<void>('/tasks/$id',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'DELETE',
             headers: <String, dynamic>{},
@@ -329,11 +329,11 @@ class _RestClient implements RestClient {
   }
 
   @override
-  postFormData(task, {file}) async {
+  Future<String> postFormData(Task task, {File file}) async {
     ArgumentError.checkNotNull(task, 'task');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
+    final _queryParameters = <String, dynamic>{};
+    _queryParameters.removeWhere((k, v) => v == null);
     final _data = FormData();
     _data.fields.add(MapEntry('task', jsonEncode(task ?? <String, dynamic>{})));
     if (file != null) {
@@ -343,7 +343,7 @@ class _RestClient implements RestClient {
               filename: file.path.split(Platform.pathSeparator).last)));
     }
     final Response<String> _result = await _dio.request('/post',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'POST',
             headers: <String, dynamic>{},
@@ -355,11 +355,12 @@ class _RestClient implements RestClient {
   }
 
   @override
-  postFormData2(task, file) async {
+  Future<String> postFormData2(
+      List<Map<String, dynamic>> task, File file) async {
     ArgumentError.checkNotNull(task, 'task');
     ArgumentError.checkNotNull(file, 'file');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = FormData();
     _data.fields.add(MapEntry('task', jsonEncode(task)));
     _data.files.add(MapEntry(
@@ -367,7 +368,7 @@ class _RestClient implements RestClient {
         MultipartFile.fromFileSync(file.path,
             filename: file.path.split(Platform.pathSeparator).last)));
     final Response<String> _result = await _dio.request('/post',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'POST',
             headers: <String, dynamic>{},
@@ -379,10 +380,10 @@ class _RestClient implements RestClient {
   }
 
   @override
-  postFormData3({files, file}) async {
+  Future<String> postFormData3({List<File> files, File file}) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
+    final _queryParameters = <String, dynamic>{};
+    _queryParameters.removeWhere((k, v) => v == null);
     final _data = FormData();
     _data.files.addAll(files?.map((i) => MapEntry(
         'customfiles',
@@ -395,7 +396,7 @@ class _RestClient implements RestClient {
               filename: file.path.split(Platform.pathSeparator).last)));
     }
     final Response<String> _result = await _dio.request('/post',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'POST',
             headers: <String, dynamic>{},
@@ -407,11 +408,11 @@ class _RestClient implements RestClient {
   }
 
   @override
-  postFormData4(tasks, file) async {
+  Future<String> postFormData4(List<Task> tasks, File file) async {
     ArgumentError.checkNotNull(tasks, 'tasks');
     ArgumentError.checkNotNull(file, 'file');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = FormData();
     _data.fields.add(MapEntry('tasks', jsonEncode(tasks)));
     _data.files.add(MapEntry(
@@ -419,7 +420,7 @@ class _RestClient implements RestClient {
         MultipartFile.fromFileSync(file.path,
             filename: file.path.split(Platform.pathSeparator).last)));
     final Response<String> _result = await _dio.request('/post',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'POST',
             headers: <String, dynamic>{},
@@ -431,13 +432,15 @@ class _RestClient implements RestClient {
   }
 
   @override
-  postFormData5(tasks, map, a, {b, c, d}) async {
+  Future<String> postFormData5(
+      List<Task> tasks, Map<String, dynamic> map, int a,
+      {bool b, double c, String d}) async {
     ArgumentError.checkNotNull(tasks, 'tasks');
     ArgumentError.checkNotNull(map, 'map');
     ArgumentError.checkNotNull(a, 'a');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
+    final _queryParameters = <String, dynamic>{};
+    _queryParameters.removeWhere((k, v) => v == null);
     final _data = FormData();
     _data.fields.add(MapEntry('tasks', jsonEncode(tasks)));
     _data.fields.add(MapEntry('map', jsonEncode(map)));
@@ -454,7 +457,7 @@ class _RestClient implements RestClient {
       _data.fields.add(MapEntry('d', d));
     }
     final Response<String> _result = await _dio.request('/post',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'POST',
             headers: <String, dynamic>{},
@@ -466,14 +469,14 @@ class _RestClient implements RestClient {
   }
 
   @override
-  queries(queries) async {
+  Future<String> queries(Map<String, dynamic> queries) async {
     ArgumentError.checkNotNull(queries, 'queries');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.addAll(queries ?? <String, dynamic>{});
+    final _queryParameters = <String, dynamic>{};
+    _queryParameters.addAll(queries ?? <String, dynamic>{});
     final _data = <String, dynamic>{};
     final Response<String> _result = await _dio.request('/demo',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'GET',
             headers: <String, dynamic>{},
@@ -485,21 +488,22 @@ class _RestClient implements RestClient {
   }
 
   @override
-  namedExample(apiKey, scope, type, {from}) async {
+  Future<String> namedExample(String apiKey, String scope, String type,
+      {int from}) async {
     ArgumentError.checkNotNull(apiKey, 'apiKey');
     ArgumentError.checkNotNull(scope, 'scope');
     ArgumentError.checkNotNull(type, 'type');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
+    final _queryParameters = <String, dynamic>{
       'apikey': apiKey,
       'scope': scope,
       'type': type,
       'from': from
     };
-    queryParameters.removeWhere((k, v) => v == null);
+    _queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final Response<String> _result = await _dio.request('/get',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'GET',
             headers: <String, dynamic>{},
@@ -511,13 +515,13 @@ class _RestClient implements RestClient {
   }
 
   @override
-  postFile({file}) async {
+  Future<String> postFile({File file}) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
+    final _queryParameters = <String, dynamic>{};
+    _queryParameters.removeWhere((k, v) => v == null);
     final _data = Stream.fromIterable(file.readAsBytesSync().map((i) => [i]));
     final Response<String> _result = await _dio.request('/postfile',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: RequestOptions(
             method: 'POST',
             headers: <String, dynamic>{
@@ -533,16 +537,16 @@ class _RestClient implements RestClient {
   }
 
   @override
-  testCustomOptions(options) async {
+  Future<String> testCustomOptions(Options options) async {
     ArgumentError.checkNotNull(options, 'options');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final _queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final newOptions = newRequestOptions(options);
     newOptions.extra.addAll(_extra);
     newOptions.headers.addAll(<String, dynamic>{});
     final Response<String> _result = await _dio.request('',
-        queryParameters: queryParameters,
+        queryParameters: _queryParameters,
         options: newOptions.merge(method: 'GET', baseUrl: baseUrl),
         data: _data);
     final value = _result.data;
